@@ -5,7 +5,13 @@ function xhrRequest(url, type, callback) {
   var async = callback ? true : false;
   if (async) {
     xhr.onreadystatechange = function () {
+      if (!this.readyState) {
+        return;
+      }
       if (this.readyState === 4) {
+        if (!this.status) {
+          callback(null);
+        }
         if (this.status >= 200 && this.status < 300) {
           callback(this.responseText);
         } else {
@@ -38,12 +44,12 @@ function extractConnectionResultInfos(text) {
   }
   
   var detailLinkExp = /a href="([^"]*)"/;
-  var zeitExp = /span class="bold">(\d*:\d*)</g;
-  var vmExp = /<td class="overview iphonepfeil">([^<]*)</;
-  var umstiegeUndDauerExp = /<td class="overview">(\d*) *<br *.>(\d*:\d*)/;
-  var delaysExp = /<td class="overview tprt"> *<span[^>]*>(.\d*)<.*<span[^>]*>(.\d*)</;
-  var nurStartDelayExp = /<td class="overview tprt"> *<span[^>]*>(.\d*)</;
-  var nurZielDelayExp = /<td class="overview tprt"> *&nbsp.*<span[^>]*>(.\d*)</;
+  var zeitExp = /span class="bold" *>(\d*:\d*)</g;
+  var vmExp = /<td class="overview iphonepfeil" *>([^<]*)</;
+  var umstiegeUndDauerExp = /<td class="overview" *>(\d*) *<br *.>(\d*:\d*)/;
+  var delaysExp = /<td class="overview tprt" *> *<span[^>]*>(.\d*)<.*<span[^>]*>(.\d*)</;
+  var nurStartDelayExp = /<td class="overview tprt" *> *<span[^>]*>(.\d*)</;
+  var nurZielDelayExp = /<td class="overview tprt" *> *&nbsp.*<span[^>]*>(.\d*)</;
   var achtungExp = /achtung_17x19_mitschatten.png/;
   var ausfallExp = /Icon_Zug_faellt_aus_mit_Schatten_17x19.png/;
   var frueherExp = /(http:\/\/reiseauskunft\.bahn\.de\/bin\/query2\.exe\/dox\?[^"]*amp;e=2[^"]*)"/;
@@ -73,8 +79,11 @@ function extractConnectionResultInfos(text) {
     zeitExp.lastIndex = 0;
     result.von = zeitExp.exec(connectionInfo)[1];
     result.bis = zeitExp.exec(connectionInfo)[1];
-
-    result.vm = connectionInfo.match(vmExp)[1].trim();
+    
+    var vm = connectionInfo.match(vmExp);
+    if (vm) {
+      result.vm = vm[1].trim();
+    }
     
     var umstiegeUndDauer = connectionInfo.match(umstiegeUndDauerExp);
     if (umstiegeUndDauer) {

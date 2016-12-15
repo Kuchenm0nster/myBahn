@@ -64,11 +64,6 @@ static void prv_create_default_settings() {
   settings.default_products.ast = true;
   
   int i = -1;
-  i++;
-  strcpy(settings.stations[i].ibnr, "8006596");
-  strcpy(settings.stations[i].title, "Wpt. Barmen");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
 
   i++;
   strcpy(settings.stations[i].ibnr, "8003368");
@@ -137,30 +132,11 @@ static void prv_create_default_settings() {
   settings.connections[i].allowed_products.ubahn = true;
   settings.connections[i].allowed_products.tram = true;
   settings.connections[i].allowed_products.ast = true;
-
-  i++;
-  strcpy(settings.connections[i].start_ibnr, "8000266");
-  strcpy(settings.connections[i].dest_ibnr, "8006596");
-  strcpy(settings.connections[i].title, "Wpt. Hbf");
-  strcpy(settings.connections[i].subtitle, "->Wpt. Barmen");
-  settings.connections[i].is_enabled = true;
-  settings.connections[i].use_default_products = false;
-  settings.connections[i].allowed_products.allow_all = false;
-  settings.connections[i].allowed_products.ice = false;
-  settings.connections[i].allowed_products.ic = false;
-  settings.connections[i].allowed_products.ir = false;
-  settings.connections[i].allowed_products.zug = true;
-  settings.connections[i].allowed_products.sbahn = true;
-  settings.connections[i].allowed_products.bus = true;
-  settings.connections[i].allowed_products.schiff = true;
-  settings.connections[i].allowed_products.ubahn = true;
-  settings.connections[i].allowed_products.tram = true;
-  settings.connections[i].allowed_products.ast = true;
          
   i++;
-  strcpy(settings.connections[i].start_ibnr, "8006596");
+  strcpy(settings.connections[i].start_ibnr, "8000266");
   strcpy(settings.connections[i].dest_ibnr, "8003368");
-  strcpy(settings.connections[i].title, "Wpt. Barmen");
+  strcpy(settings.connections[i].title, "Wpt. Hbf");
   strcpy(settings.connections[i].subtitle, "->Köln Messe/Deutz");
   settings.connections[i].is_enabled = true;
   settings.connections[i].use_default_products = false;
