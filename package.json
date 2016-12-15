@@ -1,0 +1,113 @@
+{
+    "author": "mybahn@kueppernet.de",
+    "dependencies": {
+        "pebble-clay": "^1.0.0"
+    },
+    "keywords": [],
+    "name": "mybahn",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "myBahn",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "status",
+            "message",
+            "StatTitle[10]",
+            "StatIBNR[10]",
+            "ConnStartIBNR[10]",
+            "ConnDestIBNR[10]",
+            "ConnTitle[10]",
+            "ConnSubTitle[10]",
+            "BahnReqId",
+            "BahnReqType",
+            "BahnReqUrl",
+            "BahnReqStartStation",
+            "BahnReqDestStation",
+            "BahnReqProducts",
+            "BahnRespPartNum",
+            "BahnRespParts",
+            "BahnReqTypeBuildConnResults",
+            "BahnReqTypeGetConnDetails",
+            "BahnConnDetails",
+            "BahnConnTitle",
+            "BahnConnSubtitle",
+            "BahnConnDetailsUrl",
+            "BahnMaxLength",
+            "BahnFrueherUrl",
+            "BahnSpaeterUrl",
+            "BahnReqTypeGetConnResult",
+            "BahnRespTypeLoadFailed",
+            "DefICE",
+            "DefIC",
+            "DefIR",
+            "DefRE",
+            "DefS",
+            "DefSchiff",
+            "DefU",
+            "DefBus",
+            "DefTram",
+            "DefAST",
+            "ConnUseDefProd[10]",
+            "ConnICE[10]",
+            "ConnIC[10]",
+            "ConnIR[10]",
+            "ConnRE[10]",
+            "ConnS[10]",
+            "ConnSchiff[10]",
+            "ConnU[10]",
+            "ConnBus[10]",
+            "ConnTram[10]",
+            "ConnAST[10]",
+            "StatSubTitle[10]",
+            "StatUseDefProd[10]",
+            "StatICE[10]",
+            "StatIC[10]",
+            "StatIR[10]",
+            "StatRE[10]",
+            "StatS[10]",
+            "StatSchiff[10]",
+            "StatU[10]",
+            "StatBus[10]",
+            "StatTram[10]",
+            "StatAST[10]",
+            "DefAllProd",
+            "StatAllProd[10]",
+            "ConnAllProd[10]",
+            "ConnEnabled[10]",
+            "StatEnabled[10]"
+        ],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/mybahn25x25.png",
+                    "menuIcon": true,
+                    "name": "IMAGE_ICON_MAIN",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt",
+                        "chalk",
+                        "diorite",
+                        "emery"
+                    ],
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery"
+        ],
+        "uuid": "46824e47-14bd-422d-b993-258a62a92151",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
