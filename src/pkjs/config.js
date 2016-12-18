@@ -23,8 +23,8 @@ var exports = [
     "group": "Howto", 
     "defaultValue": 
       'Für die Konfiguration von Bahnhöfen bzw. Verbindungen brauchst Du die jeweilige, 8-stellige IBNR bzw. EVA-Nr der Haltestellen.<br/>' +
-      'Ein Verzeichnis findest Du z.B. bei der Deutschen Bahn unter <a href="http://data.deutschebahn.com/dataset/data-haltestellen">http://data.deutschebahn.com/dataset/data-haltestellen</a>.<br/>' +
-      'Oder Du benutzt die Online-Suche von Michael Dittrich unter <a href="http://www.michaeldittrich.de/ibnr/online.php">http://www.michaeldittrich.de/ibnr/online.php</a>.<br/>' +
+      'Ein Verzeichnis findest Du z.B. bei der Deutschen Bahn unter: <br/>http://data.deutschebahn.com/dataset/data-haltestellen<br/><br/>' +
+      'Oder Du benutzt die Online-Suche von Michael Dittrich unter <br/>http://www.michaeldittrich.de/ibnr/online.php<br/><br/>' +
       'Ungültige oder falsche IBNR führen dazu, dass die Abfragen fehlschlagen oder falsche Daten liefern.'
   },
   {
@@ -55,6 +55,14 @@ var exports = [
     "group": "Howto", 
     "defaultValue": 
       'Innerhalb der Bahnhöfe und Verbindungen kannst Du jeweils über den Button "Nach oben" die Einträge umsortieren.'
+  },
+  {
+    "type": "text",
+    "group": "Howto", 
+    "defaultValue": 
+    'Ein Tipp: Das Pebble-Konfigurationsframework, mit dem diese Seite hier arbeitet, ist nicht so 100%ig stabil, was ab und zu dazu führt, dass die Seite zugeht, ohne die Eingaben zu speichern. ' +
+    'Auch wenn Du versehentlich auf die "Zurück"-Taste Deines Geräts kommst, sind die letzten Eingaben weg. ' +
+    'Daher empfiehlt es sich, zwischendurch öfter mal den aktuellen Stand über den "Speichern"-Button zu sichern.'
   }
 ];
 function createProductSection(withUseDefaultToggle, prefix, suffix) {
