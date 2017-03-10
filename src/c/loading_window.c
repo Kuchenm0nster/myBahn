@@ -20,7 +20,8 @@ static void config_provider(void *context) {
 
 static void window_load(Window *window) {
   if (!initialized) {
-    MessageWindow_build(s_main_window, LOADING_MESSAGE, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+    GRect bounds = computeEffectiveWindowBounds(window, NULL);
+    MessageWindow_build(s_main_window, bounds, LOADING_MESSAGE, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
     window_set_click_config_provider(s_main_window, config_provider);
     initialized = true;
   }

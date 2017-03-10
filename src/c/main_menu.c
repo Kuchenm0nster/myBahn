@@ -7,6 +7,7 @@
 #include "main_menu.h"
 
 static MenuLayer *s_menu_layer;
+static StatusBarLayer *s_status_bar;
 
 static bool is_connections_section(uint16_t section_index) {
   if (section_index > 0) {
@@ -98,10 +99,11 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
 }
 
 void MainMenu_create(Window *window) {
-  MainMenu_destroy();  
+  MainMenu_destroy();
 
   Layer *window_layer = window_get_root_layer(window);
-  GRect bounds = layer_get_frame(window_layer);
+  s_status_bar = addStatusBar(window);
+  GRect bounds = computeEffectiveWindowBounds(window, s_status_bar);
 
   s_menu_layer = menu_layer_create(bounds);
 
@@ -126,6 +128,8 @@ void MainMenu_destroy() {
   }
   menu_layer_destroy(s_menu_layer);
   s_menu_layer = NULL;
+  status_bar_layer_destroy(s_status_bar);
+  s_status_bar = NULL;
   ToStationsMenu_destroy();
   ConnectionResultsMenu_destroy();
   ConnectionDetailsWindow_destroy();

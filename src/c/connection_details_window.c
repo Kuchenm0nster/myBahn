@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include "resources.h"
 #include "scroll_text_layer.h"
 #include "bahn_interface.h"
 #include "connection_details_window.h"
@@ -6,6 +7,7 @@
 
 static Window* s_window;
 static ScrollTextLayer* s_scroll_layer;
+static StatusBarLayer *s_status_bar;
 
 #define NUM_FONTS 6
 
@@ -36,7 +38,19 @@ static void click_config_provider(void *context) {
 
 static void window_load(Window* window) {
   if (!s_scroll_layer) {
-    s_scroll_layer = scroll_text_layer_create_fullscreen(window);
+    s_status_bar = addStatusBar(window);
+    GRect scroll_layer_bounds = computeEffectiveWindowBounds(window, s_status_bar);
+#if defined(PBL_ROUND)
+    int original_height = scroll_layer_bounds.size.h;
+    int original_width = scroll_layer_bounds.size.w;
+    
+    scroll_layer_bounds.size.w -= 20;
+    scroll_layer_bounds.size.h = original_height * 2 / 3;
+    
+    scroll_layer_bounds.origin.x = (original_width - scroll_layer_bounds.size.w) / 2;
+    scroll_layer_bounds.origin.y = (original_height - scroll_layer_bounds.size.h) / 2;
+#endif
+    s_scroll_layer = scroll_text_layer_create(scroll_layer_bounds);
   }
   scroll_text_layer_set_system_font(s_scroll_layer, fonts[font]);
   scroll_text_layer_set_text(s_scroll_layer, BahnInterface_get_current_connection_details());
@@ -49,6 +63,8 @@ static void window_load(Window* window) {
 static void window_unload(Window *window) {
   scroll_text_layer_destroy(s_scroll_layer);
   s_scroll_layer = NULL;
+  status_bar_layer_destroy(s_status_bar);
+  s_status_bar = NULL;
 }
 
 static void show_window() {

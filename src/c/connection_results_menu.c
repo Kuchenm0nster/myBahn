@@ -8,6 +8,7 @@
 static MenuLayer* s_menu_layer;
 static Window* s_window;
 static char s_header[2 * CONNECTION_SUBTITLE_LENGTH + 10];
+static StatusBarLayer *s_status_bar;
 
 static uint16_t menu_get_num_sections_callback(MenuLayer *menu_layer, void *data) {
   return 1;
@@ -101,8 +102,9 @@ static void build_connection_results_window() {
   s_window = window_create();
 
   Layer *window_layer = window_get_root_layer(s_window);
-  GRect bounds = layer_get_frame(window_layer);
-
+  s_status_bar = addStatusBar(s_window);
+  GRect bounds = computeEffectiveWindowBounds(s_window, s_status_bar);
+  
   s_menu_layer = menu_layer_create(bounds);
   menu_layer_set_click_config_onto_window(s_menu_layer, s_window);
   menu_layer_set_callbacks(s_menu_layer, NULL, (MenuLayerCallbacks){ 
@@ -152,7 +154,9 @@ void ConnectionResultsMenu_destroy() {
   }
   
   menu_layer_destroy(s_menu_layer);
+  status_bar_layer_destroy(s_status_bar);
   window_destroy(s_window);
+  s_status_bar = NULL;
   s_menu_layer = NULL;
   s_window = NULL;
 }

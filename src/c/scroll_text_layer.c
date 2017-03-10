@@ -71,6 +71,10 @@ void scroll_text_layer_set_font(ScrollTextLayer* layer, GFont font) {
 
 
 static void scroll_text_layer_update(ScrollTextLayer* layer) {
+//#if defined(PBL_ROUND)
+//  text_layer_set_text_alignment(layer->text_layer, GTextAlignmentCenter);
+//  text_layer_enable_screen_text_flow_and_paging(layer->text_layer, 1);
+//#endif
   GSize max_size = text_layer_get_content_size(layer->text_layer);
   text_layer_set_size(layer->text_layer, max_size);
   GRect bounds = layer_get_bounds(scroll_layer_get_layer(layer->scroll_layer));

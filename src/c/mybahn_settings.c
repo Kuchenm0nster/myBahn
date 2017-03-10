@@ -2,7 +2,7 @@
 #include "resources.h"
 #include "mybahn_settings.h"
 
-//#define CREATE_DUMMY_SETTINGS
+// #define CREATE_DUMMY_SETTINGS
 static MyBahnSettings settings;
 
 static void prv_validate_station(StationConfig* station) {
@@ -76,42 +76,6 @@ static void prv_create_default_settings() {
   strcpy(settings.stations[i].title, "Wpt. Hbf");
   settings.stations[i].is_enabled = true;
   settings.stations[i].use_default_products = true;
-
-  i++;
-  strcpy(settings.stations[i].ibnr, "8006719");
-  strcpy(settings.stations[i].title, "Wpt. Oberbarmen");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
-
-  i++;
-  strcpy(settings.stations[i].ibnr, "8006620");
-  strcpy(settings.stations[i].title, "Wpt. Unterbarmen");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
-
-  i++;
-  strcpy(settings.stations[i].ibnr, "8000152");
-  strcpy(settings.stations[i].title, "Hannover Hbf");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
-
-  i++;
-  strcpy(settings.stations[i].ibnr, "8000142");
-  strcpy(settings.stations[i].title, "Hagen Hbf");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
-
-  i++;
-  strcpy(settings.stations[i].ibnr, "8006226");
-  strcpy(settings.stations[i].title, "Wattenscheid");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
-
-  i++;
-  strcpy(settings.stations[i].ibnr, "8000085");
-  strcpy(settings.stations[i].title, "D'dorf Hbf");
-  settings.stations[i].is_enabled = true;
-  settings.stations[i].use_default_products = true;
          
   i = -1;
   i++;
@@ -119,25 +83,6 @@ static void prv_create_default_settings() {
   strcpy(settings.connections[i].dest_ibnr, "8000266");
   strcpy(settings.connections[i].title, "Köln Messe/Deutz");
   strcpy(settings.connections[i].subtitle, "->Wpt. Hbf");
-  settings.connections[i].is_enabled = true;
-  settings.connections[i].use_default_products = false;
-  settings.connections[i].allowed_products.allow_all = false;
-  settings.connections[i].allowed_products.ice = false;
-  settings.connections[i].allowed_products.ic = false;
-  settings.connections[i].allowed_products.ir = false;
-  settings.connections[i].allowed_products.zug = true;
-  settings.connections[i].allowed_products.sbahn = true;
-  settings.connections[i].allowed_products.bus = true;
-  settings.connections[i].allowed_products.schiff = true;
-  settings.connections[i].allowed_products.ubahn = true;
-  settings.connections[i].allowed_products.tram = true;
-  settings.connections[i].allowed_products.ast = true;
-         
-  i++;
-  strcpy(settings.connections[i].start_ibnr, "8000266");
-  strcpy(settings.connections[i].dest_ibnr, "8003368");
-  strcpy(settings.connections[i].title, "Wpt. Hbf");
-  strcpy(settings.connections[i].subtitle, "->Köln Messe/Deutz");
   settings.connections[i].is_enabled = true;
   settings.connections[i].use_default_products = false;
   settings.connections[i].allowed_products.allow_all = false;

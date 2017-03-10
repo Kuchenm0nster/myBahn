@@ -131,7 +131,6 @@ bool BahnInterface_handle_app_message(DictionaryIterator *iter, void *context) {
   // This value was stored as JS Number, which is stored here as int32_t
   int32_t msg_request_id = tuple->value->int32;
   if (msg_request_id != request_id) {
-    int m = msg_request_id;
     return true;
   }
   

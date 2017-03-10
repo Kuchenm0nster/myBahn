@@ -8,7 +8,8 @@ static bool initialized = false;
 
 static void window_load(Window *window) {
     if (!initialized) {
-      MessageWindow_build(window, LOAD_FAILED_MESSAGE, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
+      GRect bounds = computeEffectiveWindowBounds(window, NULL);
+      MessageWindow_build(window, bounds, LOAD_FAILED_MESSAGE, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
       initialized = true;
     }
 }

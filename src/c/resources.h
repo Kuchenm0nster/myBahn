@@ -1,6 +1,6 @@
 #pragma once
 #include <pebble.h>
-#define APP_NAME "myBahn"
+#define APP_NAME "myBahn 1.1"
 #define NOT_CONFIGURED "Nicht konfiguriert!"
 #define PLEASE_CONFIGURE "Bitte konfigurieren!"
 #define CONNECTIONS "Verbindungen"
@@ -13,5 +13,8 @@
 #define APP_ICON getAppIcon()
 
 GBitmap* getAppIcon();
+StatusBarLayer* addStatusBar(Window* window);
+GRect computeEffectiveWindowBounds(Window* window, StatusBarLayer* status_bar_layer);
+
 
 

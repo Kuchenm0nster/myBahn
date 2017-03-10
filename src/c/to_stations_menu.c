@@ -6,6 +6,7 @@
 
 static MenuLayer* s_menu_layer;
 static Window* s_window;
+static StatusBarLayer * s_status_bar;
 static char s_header[STATION_TITLE_LENGTH + 10];
 
 static int from_station_index;
@@ -61,7 +62,8 @@ void ToStationsMenu_display(int _from_station_index) {
   s_window = window_create();
 
   Layer *window_layer = window_get_root_layer(s_window);
-  GRect bounds = layer_get_frame(window_layer);
+  s_status_bar = addStatusBar(s_window);
+  GRect bounds = computeEffectiveWindowBounds(s_window, s_status_bar);
 
   s_menu_layer = menu_layer_create(bounds);
   menu_layer_set_click_config_onto_window(s_menu_layer, s_window);
@@ -84,7 +86,9 @@ void ToStationsMenu_destroy() {
     return;
   }
   menu_layer_destroy(s_menu_layer);
+  status_bar_layer_destroy(s_status_bar);
   window_destroy(s_window);
+  s_status_bar = NULL;
   s_menu_layer = NULL;
   s_window = NULL;
 }
