@@ -157,44 +157,44 @@ bool BahnInterface_handle_app_message(DictionaryIterator *iter, void *context) {
   return true;
 }
 
-static int prv_combine_product_code(AllowedProducts* p1, AllowedProducts* p2) {
+static int prv_get_product_code(AllowedProducts* p) {
+  if (p->allow_all) {
+    return 1023;
+  }
   int result = 0;
-  if (p1->ice || p2->ice || p1->allow_all || p2->allow_all) {
+  if (p->ice) {
     result +=1;
   }
-  if (p1->ic || p2->ic || p1->allow_all || p2->allow_all) {
+  if (p->ic) {
     result +=2;
   }
-  if (p1->ir || p2->ir || p1->allow_all || p2->allow_all) {
+  if (p->ir) {
     result +=4;
   }
-  if (p1->zug || p2->zug || p1->allow_all || p2->allow_all) {
+  if (p->zug) {
     result +=8;
   }
-  if (p1->sbahn || p2->sbahn || p1->allow_all || p2->allow_all) {
+  if (p->sbahn) {
     result +=16;
   }
-  if (p1->bus || p2->bus || p1->allow_all || p2->allow_all) {
+  if (p->bus) {
     result +=32;
   }
-  if (p1->schiff || p2->schiff || p1->allow_all || p2->allow_all) {
+  if (p->schiff) {
     result +=64;
   }
-  if (p1->ubahn || p2->ubahn || p1->allow_all || p2->allow_all) {
+  if (p->ubahn) {
     result +=128;
   }
-  if (p1->tram || p2->tram || p1->allow_all || p2->allow_all) {
+  if (p->tram) {
     result +=256;
   }
-  if (p1->ast || p2->ast || p1->allow_all || p2->allow_all) {
+  if (p->ast) {
     result +=512;
   }
   return result;
 }
 
-static int prv_get_product_code(AllowedProducts* products) {
-  return prv_combine_product_code(products, products);
-}
 
 int get_products_for_connection(int valid_connection_index) {
   return prv_get_product_code(MyBahnSettings_get_allowed_products_for_connection(valid_connection_index));
@@ -205,7 +205,7 @@ int get_products_for_station_to_station(int from_station_index, int to_station_i
   StationConfig* s2 = MyBahnSettings_get_valid_station(to_station_index);
   AllowedProducts* p1 = s1->use_default_products ? MyBahnSettings_get_default_products() : &s1->allowed_products;
   AllowedProducts* p2 = s2->use_default_products ? MyBahnSettings_get_default_products() : &s2->allowed_products;
-  return prv_combine_product_code(p1, p2);
+  return  prv_get_product_code(p1) | prv_get_product_code(p2);
 }
 
 void BahnInterface_init() {

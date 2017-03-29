@@ -22,7 +22,7 @@ GRect computeEffectiveWindowBounds(Window* window, StatusBarLayer* status_bar_la
 }
 
 StatusBarLayer* addStatusBar(Window* window) {
-  return NULL;
+  //return NULL;
   StatusBarLayer* status_bar = status_bar_layer_create();
 
   Layer *window_layer = window_get_root_layer(window);

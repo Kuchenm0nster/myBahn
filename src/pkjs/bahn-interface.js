@@ -1,4 +1,5 @@
 var baseUrl = 'http://mobil.bahn.de/bin/query.exe/dox?start=1&rt=1';
+var detailsUrlBase = 'http://reiseauskunft.bahn.de/bin/query2.exe/dox?';
 
 function xhrRequest(url, type, callback) {
   var xhr = new XMLHttpRequest();
@@ -62,7 +63,7 @@ function extractConnectionResultInfos(text) {
   
   var frueherLink = text.match(frueherExp);
   if (frueherLink) {
-    frueherLink = frueherLink[1].replace(ampExp, "&");
+    frueherLink = frueherLink[1].replace(ampExp, "&").substring(detailsUrlBase.length);
     results.push({moreLink: frueherLink, earlier: true});
   }
   
@@ -73,7 +74,7 @@ function extractConnectionResultInfos(text) {
     
     var detailLink = connectionInfo.match(detailLinkExp);
     if (detailLink) {
-      result.detailLink = detailLink[1].replace(ampExp, "&");
+      result.detailLink = detailLink[1].replace(ampExp, "&").substring(detailsUrlBase.length);
     }
     
     zeitExp.lastIndex = 0;
@@ -124,7 +125,7 @@ function extractConnectionResultInfos(text) {
   
   var spaeterLink = text.match(spaeterExp);
   if (spaeterLink) {
-    spaeterLink = spaeterLink[1].replace(ampExp, "&");
+    spaeterLink = spaeterLink[1].replace(ampExp, "&").substring(detailsUrlBase.length);
     results.push({moreLink: spaeterLink, later: true});
   }
   return results;
@@ -244,6 +245,9 @@ function extractHimDetails(himDetailsUrl) {
 }
 
 function getConnectionsFromUrl(url, resultCallback) {
+  if (url.substring(0, 4) != 'http') {
+    url = detailsUrlBase + url;
+  }
   xhrRequest(url, 'GET', function(responseText) {
     var results = extractConnectionResultInfos(responseText);
     resultCallback(results);
@@ -260,7 +264,7 @@ function getConnections(startKey, zielKey, journeyProducts, resultCallback) {
 }
 
 function getConnectionDetailInfos(detailLink, resultCallback) {
-  xhrRequest(detailLink, 'GET', function(responseText){
+  xhrRequest(detailsUrlBase + detailLink, 'GET', function(responseText){
     var result = extractConnectionDetailInfos(responseText);
     resultCallback(result);
   }); 

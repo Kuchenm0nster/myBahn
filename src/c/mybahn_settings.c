@@ -2,7 +2,7 @@
 #include "resources.h"
 #include "mybahn_settings.h"
 
-// #define CREATE_DUMMY_SETTINGS
+//#define CREATE_DUMMY_SETTINGS
 static MyBahnSettings settings;
 
 static void prv_validate_station(StationConfig* station) {
