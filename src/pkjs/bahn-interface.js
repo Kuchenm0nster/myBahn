@@ -1,4 +1,4 @@
-var baseUrl = 'http://mobil.bahn.de/bin/query.exe/dox?start=1&rt=1';
+var baseUrl = 'http://mobile.bahn.de/bin/query.exe/dox?start=1&rt=1';
 var detailsUrlBase = 'http://reiseauskunft.bahn.de/bin/query2.exe/dox?';
 
 function xhrRequest(url, type, callback) {

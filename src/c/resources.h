@@ -1,6 +1,6 @@
 #pragma once
 #include <pebble.h>
-#define APP_NAME "myBahn 1.1"
+#define APP_NAME "myBahn 1.2"
 #define NOT_CONFIGURED "Nicht konfiguriert!"
 #define PLEASE_CONFIGURE "Bitte konfigurieren!"
 #define CONNECTIONS "Verbindungen"
