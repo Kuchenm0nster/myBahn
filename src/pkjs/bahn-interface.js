@@ -1,5 +1,5 @@
 var baseUrl = 'http://mobile.bahn.de/bin/query.exe/dox?start=1&rt=1';
-var detailsUrlBase = 'http://reiseauskunft.bahn.de/bin/query2.exe/dox?';
+var detailsUrlBase = 'http://reiseauskunft.bahn.de/bin/query.exe/dox?';
 
 function xhrRequest(url, type, callback) {
   var xhr = new XMLHttpRequest();
@@ -53,8 +53,8 @@ function extractConnectionResultInfos(text) {
   var nurZielDelayExp = /<td class="overview tprt" *> *&nbsp.*<span[^>]*>(.\d*)</;
   var achtungExp = /achtung_17x19_mitschatten.png/;
   var ausfallExp = /Icon_Zug_faellt_aus_mit_Schatten_17x19.png/;
-  var frueherExp = /(http:\/\/reiseauskunft\.bahn\.de\/bin\/query2\.exe\/dox\?[^"]*amp;e=2[^"]*)"/;
-  var spaeterExp = /(http:\/\/reiseauskunft\.bahn\.de\/bin\/query2\.exe\/dox\?[^"]*&amp;e=1[^"]*)"/;
+  var frueherExp = /(http:\/\/reiseauskunft\.bahn\.de\/bin\/query\.exe\/dox\?[^"]*amp;e=2[^"]*)"/;
+  var spaeterExp = /(http:\/\/reiseauskunft\.bahn\.de\/bin\/query\.exe\/dox\?[^"]*&amp;e=1[^"]*)"/;
   var ampExp = /&amp;/gm;
   
   var results = [];
@@ -66,7 +66,6 @@ function extractConnectionResultInfos(text) {
     frueherLink = frueherLink[1].replace(ampExp, "&").substring(detailsUrlBase.length);
     results.push({moreLink: frueherLink, earlier: true});
   }
-  
   for (var i = 1; i < resultStrings.length; i++) {
     var connectionInfo = resultStrings[i].trim();
     
@@ -139,7 +138,7 @@ function extractConnectionDetailInfos(text) {
   var ausfallExp = /<[^<]*Icon_Zug_faellt_aus_mit_Schatten_17x19.png[^>]*>/gm;
   var warnungExp = /<div class="red bold haupt" *>([^<]*)<\/div>/;
   var spanExp = /<\/?span[^>]*>/gm;
-  var himDetailsLinkExp = /"(http:\/\/reiseauskunft\.bahn\.de\/bin\/query2\.exe\/dox\?[^"]*&amp;him=[^"]*)"/;
+  var himDetailsLinkExp = /"(http:\/\/reiseauskunft\.bahn\.de\/bin\/query\.exe\/dox\?[^"]*&amp;him=[^"]*)"/;
 
   var htmlTagExp = /<[^<>]*>/gm;
   var brSurrogateExp = /&#br;/gm;
@@ -227,6 +226,8 @@ function extractConnectionDetailInfos(text) {
     .replace(/&#223;/gm, "ß")
     .replace(/&#228;/gm, "ä")
     .replace(/&#246;/gm, "ö")
+    .replace(/&#x0028;/gm, "(")
+    .replace(/&#x0029;/gm, ")")
     .replace(/&#252;/gm, "ü");
 
   return results;
@@ -265,8 +266,20 @@ function getConnections(startKey, zielKey, journeyProducts, resultCallback) {
 
 function getConnectionDetailInfos(detailLink, resultCallback) {
   xhrRequest(detailsUrlBase + detailLink, 'GET', function(responseText){
-    var result = extractConnectionDetailInfos(responseText);
-    resultCallback(result);
+    var matcher=/<a id="dtlOpen_link" href="([^"]*)"/;
+    var ampExp = /&amp;/gm;
+    text = responseText
+      .replace(/(\r\n)|(\n|\r)|\t/gm, '')
+      .replace(/<br *\/?>/gm, '&#br;');
+    var dlmatch = text.match(matcher);
+    if (dlmatch) {
+      console.log(dlmatch)
+      var detailLink2 = dlmatch[1].replace(ampExp, "&").substring(detailsUrlBase.length);
+    }
+    xhrRequest(detailsUrlBase + detailLink2, 'GET', function(responseText){
+      var result = extractConnectionDetailInfos(responseText);
+      resultCallback(result);
+    });
   }); 
 }
 
